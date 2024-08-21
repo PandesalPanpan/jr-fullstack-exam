@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import useFetchItem from '../hooks/useFetchItem';
 import ItemDetails from '../components/ItemDetails';
 
-const ItemDetailsPage = () => {
+function ItemDetailsPage() {
   const { itemId } = useParams();
   const { item, error } = useFetchItem(itemId);
 

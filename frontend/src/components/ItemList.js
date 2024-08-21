@@ -1,34 +1,52 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-function ItemList({ items, onDelete }) {
+const ItemList = ({ items, onDelete }) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item) => (
-          <tr key={item.id}>
-            <td>{item.id}</td>
-            <td>{item.name}</td>
-            <td>{item.description}</td>
-            <td>${item.price}</td>
-            <td>
-              <Link to={`/items/${item.id}`}>Edit</Link>
-              <button onClick={() => onDelete(item.id)}>Delete</button>
-            </td>
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered">
+        <thead className="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Action</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {items.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>{item.description}</td>
+              <td>₱{item.price}</td>
+              <td>
+                <Link
+                  to={`/items/${item.id}`}
+                  className="btn btn-primary btn-sm mr-2"
+                >
+                  Edit
+                </Link>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => onDelete(item.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
+};
+
+ItemList.propTypes = {
+  items: PropTypes.array.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default ItemList;
