@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useUpdateItem from "../hooks/useUpdateItem";
 import useDeleteItem from '../hooks/useDeleteItem';
 
-const ItemDetails = ({ item }) => {
+function ItemDetails ({ item }) {
   const [formData, setFormData] = useState({
     name: item.name,
     description: item.description,

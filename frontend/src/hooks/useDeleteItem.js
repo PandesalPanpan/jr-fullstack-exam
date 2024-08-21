@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import config from '../config';
 
-const useDeleteItem = () => {
+function useDeleteItem() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

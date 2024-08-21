@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import config from '../config';
 
-const useFetchItem = (itemId) => {
+function useFetchItem(itemId) {
   const [item, setItem] = useState(null);
   const [error, setError] = useState(null);
 
