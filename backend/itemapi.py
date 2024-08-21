@@ -17,11 +17,6 @@ app.add_middleware(
 def get_items():
     return items
 
-@app.post("/items")
-def create_item(item: Item):
-    item_id = len(items) + 1
-    items[item_id] = item
-    return items[item_id]
 
 @app.get("/items/{item_id}")
 def get_item(item_id: int = Path(..., description="The ID of the item to retrieve")):
@@ -30,6 +25,18 @@ def get_item(item_id: int = Path(..., description="The ID of the item to retriev
         return {"error": "Item not found"}
     item_with_id = {"id": item_id, **item}
     return item_with_id
+
+@app.post("/create-item")
+def create_item(item: Item):
+    if items:
+        last_item_id = max(items.keys())
+        item_id = last_item_id + 1
+    else:
+        item_id = 1
+    item = item.model_dump()
+    item["id"] = item_id
+    items[item_id] = item
+    return items[item_id]
 
 @app.put("/update-items/{item_id}")
 def update_item(item_id: int, item: UpdateItem):
