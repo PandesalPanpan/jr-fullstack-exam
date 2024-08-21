@@ -1,25 +1,38 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetchItems from '../hooks/useFetchItems';
+import useDeleteItem from '../hooks/useDeleteItem';
 import ItemList from '../components/ItemList';
 
 function HomePage() {
-  const { items, error } = useFetchItems("items/");
+  const { items, error, refetch } = useFetchItems("items/");
+  const { deleteItem, loading, error: deleteError } = useDeleteItem();
   const navigate = useNavigate();
 
   if (error) {
     return <div>Error fetching items: {error.message}</div>;
   }
 
-  const handleNavigateToCreate = () => {
+  function handleNavigateToCreate() {
     navigate('/create-item');
+  };
+
+  async function handleDelete(itemId) {
+    try {
+      await deleteItem(itemId);
+      refetch();
+    } catch (err) {
+      console.error('Failed to delete item:', err);
+    }
   };
 
   return (
     <div>
       <h1>Items</h1>
       <button onClick={handleNavigateToCreate}>Create New Item</button>
-      <ItemList items={items} />
+      {loading && <div>Loading...</div>} {}
+      <ItemList items={items} onDelete={handleDelete} />
+      {deleteError && <div>Error deleting item: {deleteError.message}</div>}
     </div>
   );
 };
