@@ -1,8 +1,17 @@
 from fastapi import FastAPI, Path
+from fastapi.middleware.cors import CORSMiddleware
 from items_data import items
 from item_model import Item, UpdateItem
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True,
+)
 
 @app.get("/items")
 def get_items():
@@ -16,9 +25,13 @@ def create_item(item: Item):
 
 @app.get("/items/{item_id}")
 def get_item(item_id: int = Path(..., description="The ID of the item to retrieve")):
-    return items.get(item_id)
+    item = items.get(item_id)
+    if item is None:
+        return {"error": "Item not found"}
+    item_with_id = {"id": item_id, **item}
+    return item_with_id
 
-@app.put("/items/{item_id}")
+@app.put("/update-items/{item_id}")
 def update_item(item_id: int, item: UpdateItem):
     if item_id not in items:
         return {"error": "Item not found"}
@@ -34,7 +47,7 @@ def update_item(item_id: int, item: UpdateItem):
 
     return items[item_id]
 
-@app.delete("/items/{item_id}")
+@app.delete("/delete-items/{item_id}")
 def delete_item(item_id: int):
     if item_id not in items:
         return {"error": "Item not found"}
