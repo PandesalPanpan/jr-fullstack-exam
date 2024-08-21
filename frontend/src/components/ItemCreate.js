@@ -14,62 +14,68 @@ function ItemCreate() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData({
+      ...formData,
       [name]: value,
-    }));
+    });
   };
 
-  const handleCreate = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const newItem = await createItem(formData);
-      console.log("Item created successfully:", newItem);
-      navigate('/'); // Redirect to home page
+      await createItem(formData);
+      navigate('/');
     } catch (err) {
-      console.error("Error creating item:", err);
+      console.error('Failed to create item:', err);
     }
   };
 
   return (
-    <div>
-      <h1>Create Item</h1>
-      <form>
-        <div>
-          <label htmlFor="name">Name:</label>
+    <div className="container mt-5">
+      <h2>Create New Item</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
           <input
             type="text"
+            className="form-control"
             id="name"
             name="name"
             value={formData.name}
             onChange={handleChange}
+            required
           />
         </div>
-        <div>
-          <label htmlFor="description">Description:</label>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
           <textarea
+            className="form-control"
             id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
+            required
           />
         </div>
-        <div>
-          <label htmlFor="price">Price:</label>
+        <div className="form-group">
+          <label htmlFor="price">Price</label>
           <input
             type="number"
+            className="form-control"
             id="price"
             name="price"
             value={formData.price}
             onChange={handleChange}
+            required
           />
         </div>
-        <button type="button" onClick={handleCreate} disabled={loading}>
-          {loading ? 'Creating...' : 'Create'}
+        {error && <div className="alert alert-danger">Error: {error.message}</div>}
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? 'Creating...' : 'Create Item'}
         </button>
-        {error && <div>Error creating item: {error.message}</div>}
       </form>
     </div>
   );
-};
+}
 
 export default ItemCreate;

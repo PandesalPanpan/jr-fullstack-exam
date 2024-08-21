@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import useFetchItem from '../hooks/useFetchItem';
-import ItemDetails from '../components/ItemDetails';
+import ItemEdit from '../components/ItemEdit';
 
-function ItemDetailsPage() {
+function ItemEditPage() {
   const { itemId } = useParams();
   const { item, error } = useFetchItem(itemId);
 
@@ -15,7 +15,7 @@ function ItemDetailsPage() {
     return <div>Loading...</div>;
   }
 
-  return <ItemDetails item={item} />;
+  return <ItemEdit item={item} />;
 };
 
-export default ItemDetailsPage;
+export default ItemEditPage;

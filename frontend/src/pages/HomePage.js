@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetchItems from '../hooks/useFetchItems';
 import useDeleteItem from '../hooks/useDeleteItem';
-import ItemList from '../components/ItemList';
+import ItemTable from '../components/ItemTable';
 
 function HomePage() {
   const { items, error, refetch } = useFetchItems("items/");
@@ -31,7 +31,7 @@ function HomePage() {
       <h1>Items</h1>
       <button onClick={handleNavigateToCreate}>Create New Item</button>
       {loading && <div>Loading...</div>} {}
-      <ItemList items={items} onDelete={handleDelete} />
+      <ItemTable items={items} onDelete={handleDelete} />
       {deleteError && <div>Error deleting item: {deleteError.message}</div>}
     </div>
   );

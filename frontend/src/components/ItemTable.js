@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const ItemList = ({ items, onDelete }) => {
+function ItemTable({ items, onDelete }){
   return (
     <div className="table-responsive">
       <table className="table table-striped table-bordered">
@@ -44,9 +44,9 @@ const ItemList = ({ items, onDelete }) => {
   );
 };
 
-ItemList.propTypes = {
+ItemTable.propTypes = {
   items: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
-export default ItemList;
+export default ItemTable;

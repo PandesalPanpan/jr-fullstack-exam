@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import useUpdateItem from "../hooks/useUpdateItem";
-import useDeleteItem from '../hooks/useDeleteItem';
 
-function ItemDetails ({ item }) {
+
+function ItemEdit({ item }) {
   const [formData, setFormData] = useState({
     name: item.name,
     description: item.description,
@@ -11,9 +11,8 @@ function ItemDetails ({ item }) {
     id: item.id,
   });
 
-  const { updateItem, loading, error } = useUpdateItem();
-  const { deleteItem, loading: deleteLoading, error: deleteError } = useDeleteItem();
   const navigate = useNavigate();
+  const { updateItem, loading, error } = useUpdateItem();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,64 +31,65 @@ function ItemDetails ({ item }) {
     }
   };
 
-  const handleDelete = async () => {
-    try {
-      const response = await deleteItem(formData.id);
-      console.log("Item deleted successfully:", response);
-      navigate('/');
-    } catch (err) {
-      console.error("Error deleting item:", err);
-    }
+  const handleGoBack = () => {
+    navigate('/');
   };
 
   return (
-    <div>
-      <h1>Item Details</h1>
-      <form>
-        <div>
+    <div className="container mt-5">
+      <h2>Item Details</h2>
+      <form onSubmit={handleUpdate}>
+        <div className="form-group">
           <label htmlFor="name">Name:</label>
           <input
             type="text"
             id="name"
             name="name"
+            className="form-control"
             value={formData.name}
             onChange={handleChange}
+            required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="description">Description:</label>
           <textarea
             id="description"
             name="description"
+            className="form-control"
             value={formData.description}
             onChange={handleChange}
+            required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="price">Price:</label>
           <input
             type="number"
             id="price"
             name="price"
+            className="form-control"
             value={formData.price}
             onChange={handleChange}
+            required
           />
         </div>
-        <div>
-          <label htmlFor="id">ID:</label>
-          <input type="text" id="id" name="id" value={formData.id} readOnly />
-        </div>
-        <button type="button" onClick={handleUpdate} disabled={loading}>
-          {loading ? "Updating..." : "Update"}
+        {error && (
+          <div className="alert alert-danger">Error: {error.message}</div>
+        )}
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={loading}
+        >
+          {loading ? "Saving..." : "Save Changes"}
         </button>
-        {error && <div>Error updating item: {error.message}</div>}
-        <button type="button" onClick={handleDelete} disabled={deleteLoading}>
-          {deleteLoading ? 'Deleting...' : 'Delete'}
+        <button type="button" className="btn btn-secondary ml-2" onClick={handleGoBack}>
+          Go back
         </button>
-        {deleteError && <div>Error deleting item: {deleteError.message}</div>}
       </form>
     </div>
   );
-};
+}
 
-export default ItemDetails;
+export default ItemEdit;
