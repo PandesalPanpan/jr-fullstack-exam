@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useCreateItem from '../hooks/useCreateItem';
+import GoBackButton from './GoBackButton';
 
 function ItemCreate() {
   const [formData, setFormData] = useState({
@@ -73,6 +74,7 @@ function ItemCreate() {
         <button type="submit" className="btn btn-primary" disabled={loading}>
           {loading ? 'Creating...' : 'Create Item'}
         </button>
+        <GoBackButton />
       </form>
     </div>
   );

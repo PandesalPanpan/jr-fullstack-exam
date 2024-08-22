@@ -1,3 +1,16 @@
+.navbar-nav .nav-item .nav-link {
+  font-size: 1.2rem;
+  color: #000000 !important;
+  padding: 10px 15px;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #000000 !important;
+  text-decoration: underline;
+  background-color: #e9ecef;
+  border-radius: 5px;
+}
+
 .table-responsive {
   margin: 20px 0;
 }

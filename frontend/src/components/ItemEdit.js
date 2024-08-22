@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import useUpdateItem from "../hooks/useUpdateItem";
+import GoBackButton from './GoBackButton'; 
 
 
 function ItemEdit({ item }) {
@@ -11,7 +11,6 @@ function ItemEdit({ item }) {
     id: item.id,
   });
 
-  const navigate = useNavigate();
   const { updateItem, loading, error } = useUpdateItem();
 
   const handleChange = (e) => {
@@ -31,9 +30,6 @@ function ItemEdit({ item }) {
     }
   };
 
-  const handleGoBack = () => {
-    navigate('/');
-  };
 
   return (
     <div className="container mt-5">
@@ -84,9 +80,7 @@ function ItemEdit({ item }) {
         >
           {loading ? "Saving..." : "Save Changes"}
         </button>
-        <button type="button" className="btn btn-secondary ml-2" onClick={handleGoBack}>
-          Go back
-        </button>
+        <GoBackButton />
       </form>
     </div>
   );
