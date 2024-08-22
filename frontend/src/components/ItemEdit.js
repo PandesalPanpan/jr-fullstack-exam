@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useUpdateItem from "../hooks/useUpdateItem";
-import GoBackButton from './GoBackButton'; 
-
+import GoBackButton from "./GoBackButton";
+import { validatePrice } from "../utils/validation";
 
 function ItemEdit({ item }) {
   const [formData, setFormData] = useState({
@@ -12,24 +12,36 @@ function ItemEdit({ item }) {
   });
 
   const { updateItem, loading, error } = useUpdateItem();
+  const [validationError, setValidationError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-  };
+  }
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    const { price } = formData;
+    if (!validatePrice(price)) {
+      setValidationError("Price should only have up to two decimal places.");
+      return;
+    }
+
+    setValidationError("");
+
     try {
       const updatedItem = await updateItem(formData);
+      setSuccessMessage("Item updated successfully");
       console.log("Item updated successfully:", updatedItem);
     } catch (err) {
-      console.error("Error updating item:", err);
+      setSuccessMessage("");
     }
   };
-
 
   return (
     <div className="container mt-5">
@@ -73,11 +85,9 @@ function ItemEdit({ item }) {
         {error && (
           <div className="alert alert-danger">Error: {error.message}</div>
         )}
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={loading}
-        >
+        {validationError && <p style={{ color: "red" }}>{validationError}</p>}
+        {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+        <button type="submit" className="btn btn-primary" disabled={loading}>
           {loading ? "Saving..." : "Save Changes"}
         </button>
         <GoBackButton />

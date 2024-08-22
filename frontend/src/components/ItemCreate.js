@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useCreateItem from '../hooks/useCreateItem';
 import GoBackButton from './GoBackButton';
+import { validatePrice } from '../utils/validation';
 
 function ItemCreate() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ function ItemCreate() {
   });
 
   const { createItem, loading, error } = useCreateItem();
+  const [validationError, setValidationError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,6 +25,16 @@ function ItemCreate() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { price } = formData;
+    if (!validatePrice(price)) {
+      setValidationError("Price should only have up to two decimal places.");
+      return;
+    }
+
+    setValidationError("");
+
+
     try {
       await createItem(formData);
       navigate('/');
@@ -71,6 +83,7 @@ function ItemCreate() {
           />
         </div>
         {error && <div className="alert alert-danger">Error: {error.message}</div>}
+        {validationError && <p style={{ color: "red" }}>{validationError}</p>}
         <button type="submit" className="btn btn-primary" disabled={loading}>
           {loading ? 'Creating...' : 'Create Item'}
         </button>
