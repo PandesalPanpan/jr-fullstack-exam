@@ -1,14 +1,18 @@
-from fastapi import APIRouter, Path
+from fastapi import APIRouter, Path, Depends
+from fastapi.security import OAuth2PasswordBearer
 
 from items_data import items
 from item_model import Item, UpdateItem
+from auth import verify_token, oauth2_scheme
 
 router = APIRouter()
 
-@router.get("/items")
-def get_items():
-    return items
+def get_current_user(token: str = Depends(oauth2_scheme)):
+    return verify_token(token)
 
+@router.get("/items")
+def get_items(current_user: str = Depends(get_current_user)):
+    return items
 
 @router.get("/items/{item_id}")
 def get_item(item_id: int = Path(..., description="The ID of the item to retrieve")):
