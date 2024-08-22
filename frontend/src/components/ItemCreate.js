@@ -67,7 +67,6 @@ function ItemCreate() {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="form-group">

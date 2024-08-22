@@ -67,7 +67,6 @@ function ItemEdit({ item }) {
             className="form-control"
             value={formData.description}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="form-group">
