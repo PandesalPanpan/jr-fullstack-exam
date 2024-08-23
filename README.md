@@ -61,12 +61,15 @@ The project structure in frontend is designed to maintain organization amd modul
 - **pages/**: Includes React view pages, which are routed to using React Router and built using components.
 - **utils/**: Contains `auth.js` & `validation.js` files, as helper modules that are used by multiple components.
 
-"I implemented basic authentication with login and logout functionality using JSON Web Token. The user accounts are stored in auth.py as follows:
+I implemented basic authentication with login and logout functionality using JSON Web Token. The user accounts are stored in auth.py as follows:
 ```
 users_db = {
     'user1': 'password1',
     'user2': 'password2'
 }
 ```
+
+You can also access the frontend on Vercel. However, I couldn't deploy the backend on Heroku due to the requirement of a credit card. As a result, the frontend on Vercel will only work if the backend is running locally at `localhost:8000`.
+- [If you have backend running locally, access frontend](https://jr-fullstack-exam.vercel.app/)
 
 I have not included comments in the code, as I believe that clear naming conventions for files, functions, and variables serve as effective documentation, with exceptions made only for complex code that requires further abstraction. Prettier Code Formatter is used for consistent formatting.
