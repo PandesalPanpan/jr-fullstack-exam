@@ -10,9 +10,9 @@ import PrivateRoute from "./components/PrivateRoute";
 function App() {
   const location = useLocation();
 
-  const hasHeaderPaths = ["/items/:itemId", "/create-item", "/"];
+  const noHeaderPaths = ["/login"];
 
-  const showHeader = hasHeaderPaths.includes(location.pathname);
+  const showHeader = !noHeaderPaths.includes(location.pathname);
   return (
     <>
       {showHeader && <Header />}
@@ -21,6 +21,7 @@ function App() {
         <Route path="/" element={<PrivateRoute element={<HomePage />} />} />
         <Route path="/items/:itemId" element={<PrivateRoute element={<ItemEditPage />} />} />
         <Route path="/create-item" element={<PrivateRoute element={<ItemCreatePage />} />} />
+        <Route path="*" element={<PrivateRoute element={<HomePage />} />} />
       </Routes>
     </>
   );
