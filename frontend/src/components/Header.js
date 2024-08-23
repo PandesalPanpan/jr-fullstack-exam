@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useLogout from '../hooks/useLogout';
 
 function Header() {
+  const { handleLogout } = useLogout();
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/"><h3>Jr Fullstack Exam</h3></Link>
@@ -17,6 +20,7 @@ function Header() {
             <Link className="nav-link" to="/create-item">Create Item</Link>
           </li>
         </ul>
+        <button className="btn btn-outline-danger ml-auto" onClick={handleLogout}>Logout</button>
       </div>
     </nav>
   );
