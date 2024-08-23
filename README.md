@@ -4,7 +4,7 @@ Welcome to my repository for the Junior Fullstack Exam. This web application is 
 
 - **Backend**: Python, FastAPI, Python Dictionary
 - **Frontend**: React.js, Bootstrap
-- **Utilities**: fastapi-cors, uvicorn, react-router-dom
+- **Utilities**: fastapi-cors, uvicorn, react-router-dom, python-jose
 
 ## Prerequisites
 Make sure you have the following software installed on your computer before starting the project:
@@ -34,9 +34,9 @@ pip install -r requirements.txt
 ```
 2. **Start Backend**
 ```
-uvicorn itemapi:app --reload
+fastapi dev main.py
 ```
-If the uvicorn is not running on the port 8000. You will have to match frontend apiBaseUrl at `config.js`
+If the "Serving at" is not running on the port 8000. You will have to match frontend apiBaseUrl at `config.js`
 
 
 ### Running Frontend
@@ -59,6 +59,8 @@ The project structure in frontend is designed to maintain organization amd modul
 - **components/**: Contains reusable react components that is inserted it pages
 - **hooks/**: Contains functions that add functionality to React components.
 - **pages/**: Includes React view pages, which are routed to using React Router and built using components.
-- **utils/**: Contains a `validation.js` file, shared across components.
+- **utils/**: Contains `auth.js` & `validation.js` files, as helper modules that are used by multiple components.
+
+I implemented basic authentication with login and logout features using JSON Web Token. However, I wasn't able to integrate token verification into my API endpoints within the given time.
 
 I have not included comments in the code, as I believe that clear naming conventions for files, functions, and variables serve as effective documentation, with exceptions made only for complex code that requires further abstraction. Prettier Code Formatter is used for consistent formatting.
