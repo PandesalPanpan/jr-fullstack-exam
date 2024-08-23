@@ -40,7 +40,7 @@ If the "Serving at" is not running on the port 8000. You will have to match fron
 
 
 ### Running Frontend
-❗ Start another terminal
+❗ Start another terminal within the project directory
 1. **Navigate to the Frontend**
 ```
 cd frontend
