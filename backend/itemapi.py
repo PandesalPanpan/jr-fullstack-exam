@@ -10,11 +10,12 @@ router = APIRouter()
 def get_current_user(token: str = Depends(oauth2_scheme)):
     return verify_token(token)
 
-@router.get("/items")
-def get_items(current_user: str = Depends(get_current_user)):
+#current_user: str = Depends(get_current_user)
+@router.get("/")
+def get_items():
     return items
 
-@router.get("/items/{item_id}")
+@router.get("/{item_id}")
 def get_item(item_id: int = Path(..., description="The ID of the item to retrieve")):
     item = items.get(item_id)
     if item is None:

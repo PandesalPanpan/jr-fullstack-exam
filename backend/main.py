@@ -13,6 +13,6 @@ app.add_middleware(
     allow_credentials=True,
 )
 
-app.include_router(auth_router, prefix="/auth", tags=["auth"])
-app.include_router(item_router, prefix="/items", tags=["items"])
+app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
+app.include_router(item_router, prefix="/api/items", tags=["items"])
 
