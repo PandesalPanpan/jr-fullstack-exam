@@ -37,7 +37,7 @@ pip install -r requirements.txt
 fastapi dev main.py
 ```
 If the "Serving at" is not running on the port 8000. You will have to match frontend apiBaseUrl at `config.js`
-
+- [If you have backend running locally, access deployed frontend](https://jr-fullstack-exam.vercel.app/)
 
 ### Running Frontend
 ❗ Start another terminal within the project directory
@@ -71,6 +71,6 @@ users_db = {
 ```
 
 You can also access the frontend on Vercel. However, I couldn't deploy the backend on Heroku due to the requirement of a credit card. As a result, the frontend on Vercel will only work if the backend is running locally at `localhost:8000`.
-- [If you have backend running locally, access frontend](https://jr-fullstack-exam.vercel.app/)
+- [If you have backend running locally, access deployed frontend](https://jr-fullstack-exam.vercel.app/)
 
 I have not included comments in the code, as I believe that clear naming conventions for files, functions, and variables serve as effective documentation, with exceptions made only for complex code that requires further abstraction. Prettier Code Formatter is used for consistent formatting.
