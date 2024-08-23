@@ -26,9 +26,9 @@ function HomePage() {
 
   return (
     <div>
+      {deleteError && <div className="alert alert-danger" role="alert">Error deleting item: {deleteError.message}</div>}
       {loading && <div>Loading...</div>} {}
       <ItemTable items={items} onDelete={handleDelete} />
-      {deleteError && <div>Error deleting item: {deleteError.message}</div>}
     </div>
   );
 }

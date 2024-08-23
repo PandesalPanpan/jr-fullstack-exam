@@ -11,7 +11,7 @@ function useDeleteItem() {
     setError(null);
 
     try {
-      const response = await axios.delete(`${config.apiBaseUrl}delete-items/${itemId}`);
+      const response = await axios.delete(`${config.apiBaseUrl}items/delete-items/${itemId}`);
       setLoading(false);
       return response.data;
     } catch (err) {

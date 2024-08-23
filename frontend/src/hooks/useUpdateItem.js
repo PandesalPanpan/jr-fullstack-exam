@@ -11,7 +11,7 @@ function useUpdateItem() {
     setError(null);
 
     try {
-      const response = await axios.put(`${config.apiBaseUrl}update-items/${item.id}`, item);
+      const response = await axios.put(`${config.apiBaseUrl}items/update-items/${item.id}`, item);
       setLoading(false);
       return response.data;
     } catch (err) {

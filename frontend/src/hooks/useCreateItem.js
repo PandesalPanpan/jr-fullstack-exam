@@ -11,7 +11,7 @@ function useCreateItem() {
     setError(null);
 
     try {
-      const response = await axios.post(`${config.apiBaseUrl}create-item`, itemData);
+      const response = await axios.post(`${config.apiBaseUrl}items/create-item`, itemData);
       setLoading(false);
       return response.data;
     } catch (err) {
